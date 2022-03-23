@@ -7,6 +7,7 @@
 		I will eventually enhance the game's gameplay,display and mechanics.
 		For The meantime the heavy work is done by the Update Function that is called 
 		in the game loop.
+		Just noticed something git on visual studio sucks or I sucks idk
 	Date of update : 23/03/2022
 */
 #include <SDL.h>
@@ -222,6 +223,7 @@ void UpdatePlayer(float elapsed)
 		StartGame = SDL_TRUE;
 
 	}
+
 	if (KeyBoardState[SDL_SCANCODE_W])
 	{
 		player1.ypos -= PLAYER_SPEED * elapsed;
@@ -232,6 +234,7 @@ void UpdatePlayer(float elapsed)
 		player1.ypos += PLAYER_SPEED * elapsed;
 		if (player1.ypos > HEIGHT - PLAYER_HEIGHT / 2) player1.ypos = HEIGHT - PLAYER_HEIGHT / 2;
 	}
+
 	if (KeyBoardState[SDL_SCANCODE_UP])
 	{
 		player2.ypos -= PLAYER_SPEED * elapsed;
@@ -242,9 +245,9 @@ void UpdatePlayer(float elapsed)
 		player2.ypos += PLAYER_SPEED * elapsed;
 		if (player2.ypos > HEIGHT - PLAYER_HEIGHT / 2) player2.ypos = HEIGHT - PLAYER_HEIGHT / 2;
 	}
+
 }
 
 
 // TODO : 
-// 
 // Implement a good collision detection function and better collision mechanics and a score system
