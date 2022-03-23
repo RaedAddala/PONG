@@ -7,7 +7,6 @@
 		I will eventually enhance the game's gameplay,display and mechanics.
 		For The meantime the heavy work is done by the Update Function that is called 
 		in the game loop.
-		Just noticed something git on visual studio sucks or I sucks idk
 	Date of update : 23/03/2022
 */
 #include <SDL.h>
