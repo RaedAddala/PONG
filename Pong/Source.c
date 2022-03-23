@@ -1,7 +1,17 @@
+/* 
+	Creator : Raed Addala
+	Project : a Pong clone
+	Brief Description : 
+		This is my first programming project.
+		I am making a Pong Clone.
+		I will eventually enhance the game's gameplay,display and mechanics.
+		For The meantime the heavy work is done by the Update Function that is called 
+		in the game loop.
+	Date of update : 23/03/2022
+*/
 #include <SDL.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 
 SDL_bool InitProject(void);
 void Update(float);
@@ -60,12 +70,16 @@ int main(int argc, char** argv)
 	// Game Loop
 	while (KeepWorking)
 	{
+		// Checking for events and processing :
+		// for the meantime the event I care about is the quit event
 		while (SDL_PollEvent(&event))
 		{
 			switch (event.type)
 			{
 			case SDL_QUIT:
 				KeepWorking = SDL_FALSE;
+				// I am skeptic that an SDL_QUIT can be the last event in the stack and 
+				// so to make sure that the game exit when the this event is processed I used this goto
 				goto Label_Out;
 			default:
 				break;
@@ -82,6 +96,7 @@ int main(int argc, char** argv)
 }
 SDL_bool InitProject(void)
 {
+	// for the meantime I only need Video and events subsystem
 	SDL_Init(SDL_INIT_VIDEO);
 	Window = SDL_CreateWindow("PONG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED
 		, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
@@ -155,15 +170,16 @@ void UpdateBall(float elapsed)
 	if (!StartGame) return; // ONLY UPDATE IF GAME IS STARTED !
 	ball.x += ball.xspeed * elapsed;
 	ball.y += ball.yspeed * elapsed;
+	// for the score calculations : 
 	if (ball.x <= BALL_SIZE / 2)
 	{
-		ball.x = BALL_SIZE / 2;
-		ball.xspeed *= -1;
+		InitBall();
+		player2.score++;
 	}
 	else if (ball.x >= WIDTH - BALL_SIZE / 2)
 	{
-		ball.x = WIDTH - BALL_SIZE / 2;
-		ball.xspeed *= -1;
+		InitBall();
+		player1.score++;
 	}
 	if (ball.y <= BALL_SIZE / 2)
 	{
@@ -217,15 +233,20 @@ void UpdatePlayer(float elapsed)
 		player1.ypos += PLAYER_SPEED * elapsed;
 		if (player1.ypos > HEIGHT - PLAYER_HEIGHT / 2) player1.ypos = HEIGHT - PLAYER_HEIGHT / 2;
 	}
+
 	if (KeyBoardState[SDL_SCANCODE_UP])
 	{
 		player2.ypos -= PLAYER_SPEED * elapsed;
 		if (player2.ypos < PLAYER_HEIGHT / 2) player2.ypos = PLAYER_HEIGHT / 2; // You can add a sound effect on this 
 	}
-
 	else if (KeyBoardState[SDL_SCANCODE_DOWN])
 	{
 		player2.ypos += PLAYER_SPEED * elapsed;
 		if (player2.ypos > HEIGHT - PLAYER_HEIGHT / 2) player2.ypos = HEIGHT - PLAYER_HEIGHT / 2;
 	}
+
 }
+
+
+// TODO : 
+// Implement a good collision detection function and better collision mechanics and a score system
